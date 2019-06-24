@@ -83,8 +83,12 @@ const schema = new GraphQLSchema({
         args: {
           id: { type: GraphQLNonNull(GraphQLID) }
         },
-        resolve: (root, { _id }, context, info) => {
-          return EpisodeModel.findByIdAndRemove(_id);
+        resolve: async (root, args) => {
+          const removed = await EpisodeModel.findByIdAndRemove(args.id);
+          if (!removed) {
+            throw new Error('error');
+          }
+          return removed;
         }
       }
     }
