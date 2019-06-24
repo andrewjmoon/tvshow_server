@@ -77,6 +77,15 @@ const schema = new GraphQLSchema({
           const episode = new EpisodeModel(args);
           return episode.save();
         }
+      },
+      deleteEpisode: {
+        type: EpisodeType,
+        args: {
+          id: { type: GraphQLNonNull(GraphQLID) }
+        },
+        resolve: (root, { _id }, context, info) => {
+          return EpisodeModel.findByIdAndRemove(_id);
+        }
       }
     }
   })
