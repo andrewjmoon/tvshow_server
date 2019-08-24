@@ -13,7 +13,7 @@ const {
 } = require('graphql');
 
 const app = Express();
-
+const PORT = process.env.PORT || 5000;
 const db = process.env.DB_HOST;
 Mongoose.connect(db, {
   useNewUrlParser: true,
@@ -105,6 +105,4 @@ app.use(
   })
 );
 
-app.listen(3001, () => {
-  console.log('Listening at :3001...');
-});
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
